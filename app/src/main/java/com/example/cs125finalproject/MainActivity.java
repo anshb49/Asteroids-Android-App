@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private float boxX;
     private float boxY;
 
-    private boolean action_up;
-    private boolean action_down;
+    private boolean action_left = false;
+    private boolean action_right = false;
 
     private Timer timer = new Timer();
 
@@ -37,7 +38,46 @@ public class MainActivity extends AppCompatActivity {
 
         box = findViewById(R.id.box);
         frame = findViewById(R.id.frame);
-        imageBoxLeft = getResources().getDrawable((R.drawable.box_left));
+        imageBoxLeft = getResources().getDrawable(R.drawable.rocketPic);
+        imageBoxRight = getResources().getDrawable((R.drawable.box_right);
+
+        Button moveLeft = findViewById(R.id.leftBtn);
+        Button moveRight = findViewById(R.id.rightBtn);
+
+
+        moveLeft.setOnClickListener(v -> {
+            action_left = true;
+            moveMethod();
+
+        });
+
+        moveRight.setOnClickListener(v -> {
+            action_right = true;
+            moveMethod();
+
+        });
+
+
+
+    }
+
+    public void moveMethod() {
+
+
+        boxX = box.getX();
+        boxY = box.getY();
+
+        if (action_left == true) {
+            boxX = boxX - 20;
+            box.setImageDrawable(imageBoxLeft);
+
+        }
+
+        if (action_right == true) {
+            boxX = boxX + 20;
+            box.setImageDrawable(imageBoxRight);
+
+        }
 
     }
 }

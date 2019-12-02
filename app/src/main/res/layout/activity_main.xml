@@ -19,7 +19,7 @@
             android:id="@+id/box"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="drawable/box_right">
+            android:src="drawable/rocketPic">
 
 
         </ImageView>
