@@ -43,9 +43,19 @@ public class MainActivity extends AppCompatActivity {
 
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
+
+
+        Button moveLeft = findViewById(R.id.leftBtn);
+        Button moveRight = findViewById(R.id.rightBtn);
+
+        moveLeft.setVisibility(View.INVISIBLE);
+        moveRight.setVisibility(View.INVISIBLE);
+
         startbutton.setOnClickListener(v -> {
             startbutton.setVisibility(View.INVISIBLE);
             welcome.setVisibility(View.INVISIBLE);
+            moveLeft.setVisibility(View.VISIBLE);
+            moveRight.setVisibility(View.VISIBLE);
         });
 
 
@@ -62,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         rocket = getResources().getDrawable(R.drawable.rocketpic);
 
 
-        Button moveLeft = findViewById(R.id.leftBtn);
-        Button moveRight = findViewById(R.id.rightBtn);
+
 
         final ImageView image = findViewById(R.id.box);
 
@@ -78,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         moveRight.setOnClickListener(v -> {
-            action_right = true;
             moveRocketRight();
 
         });
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         boxX = boxX + 60;
+
         box.setX(boxX);
         box.setImageDrawable(rocket);
 
