@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("move left");
 
 
+
         boxX = box.getX();
 
 
