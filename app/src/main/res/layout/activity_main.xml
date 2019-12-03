@@ -12,17 +12,27 @@
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="506dp"
         android:background="@android:color/holo_blue_bright">
 
         <ImageView
             android:id="@+id/box"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="drawable/rocketPic">
+            android:layout_width="119dp"
+            android:layout_height="125dp"
+            android:foreground="@drawable/rocketpic"
+            android:src="@drawable/rocketpic"
+            android:visibility="visible">
 
 
         </ImageView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:capitalize="words"
+            android:text="Welcome to Rocket Dodger" />
 
     </FrameLayout>
 

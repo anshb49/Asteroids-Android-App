@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,12 +15,12 @@ import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private ImageView box;
 
     private FrameLayout frame;
 
-    private Drawable imageBoxRight;
-    private Drawable imageBoxLeft;
+    private Drawable rocket;
 
     private float boxX;
     private float boxY;
@@ -36,24 +38,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+
+
+
+
+
+
         box = findViewById(R.id.box);
         frame = findViewById(R.id.frame);
-        imageBoxLeft = getResources().getDrawable(R.drawable.rocketPic);
-        imageBoxRight = getResources().getDrawable((R.drawable.box_right);
+        rocket = getResources().getDrawable(R.drawable.rocketpic);
+
 
         Button moveLeft = findViewById(R.id.leftBtn);
         Button moveRight = findViewById(R.id.rightBtn);
 
+        final ImageView image = findViewById(R.id.box);
+        moveLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ViewGroup.MarginLayoutParams)image.getLayoutParams()).topMargin += 1;
+                image.requestLayout();
+            }
+        });
+
 
         moveLeft.setOnClickListener(v -> {
             action_left = true;
-            moveMethod();
+            moveRocketLeft();
 
         });
 
         moveRight.setOnClickListener(v -> {
             action_right = true;
-            moveMethod();
+            moveRocketRight();
 
         });
 
@@ -61,23 +81,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void moveMethod() {
+    public void moveRocketLeft() {
 
 
         boxX = box.getX();
         boxY = box.getY();
 
-        if (action_left == true) {
-            boxX = boxX - 20;
-            box.setImageDrawable(imageBoxLeft);
+        boxX = boxX - 20;
+        box.setImageDrawable(rocket);
 
-        }
 
-        if (action_right == true) {
-            boxX = boxX + 20;
-            box.setImageDrawable(imageBoxRight);
 
-        }
+    }
+
+    public void moveRocketRight() {
+
+
+        boxX = box.getX();
+        boxY = box.getY();
+
+        boxX = boxX + 100;
+        box.setImageDrawable(rocket);
+
+
 
     }
 }
