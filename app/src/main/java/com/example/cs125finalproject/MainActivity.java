@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -38,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button startbutton = findViewById(R.id.startButton);
+        TextView welcome = findViewById(R.id.welcomeLabel);
+        startbutton.setOnClickListener(v -> {
+            startbutton.setVisibility(View.INVISIBLE);
+            welcome.setVisibility(View.INVISIBLE);
+        });
+
 
 
 
@@ -56,17 +66,13 @@ public class MainActivity extends AppCompatActivity {
         Button moveRight = findViewById(R.id.rightBtn);
 
         final ImageView image = findViewById(R.id.box);
-        moveLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ViewGroup.MarginLayoutParams)image.getLayoutParams()).topMargin += 1;
-                image.requestLayout();
-            }
-        });
+
+
+
+
 
 
         moveLeft.setOnClickListener(v -> {
-            action_left = true;
             moveRocketLeft();
 
         });
@@ -83,11 +89,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveRocketLeft() {
 
+        System.out.println("move left");
+
 
         boxX = box.getX();
-        boxY = box.getY();
 
-        boxX = boxX - 20;
+
+        boxX = boxX - 60;
+
+        box.setX(boxX);
         box.setImageDrawable(rocket);
 
 
@@ -95,12 +105,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveRocketRight() {
+        System.out.println("move right");
 
 
         boxX = box.getX();
-        boxY = box.getY();
 
-        boxX = boxX + 100;
+
+        boxX = boxX + 60;
+        box.setX(boxX);
         box.setImageDrawable(rocket);
 
 
