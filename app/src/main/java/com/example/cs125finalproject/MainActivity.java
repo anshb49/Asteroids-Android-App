@@ -44,9 +44,21 @@ public class MainActivity extends AppCompatActivity {
     private int screenWidth;
     private int screenHeight;
     private ImageView asteroid;
+    private ImageView asteroid2;
+    private ImageView asteroid3;
+    private ImageView asteroid4;
 
     private float asteroidX;
     private float asteroidY;
+
+    private float asteroidX2;
+    private float asteroidY2;
+
+    private float asteroidX3;
+    private float asteroidY3;
+
+    private float asteroidX4;
+    private float asteroidY4;
 
 
     @Override
@@ -55,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         asteroid = (ImageView)findViewById(R.id.asteroidPic);
+        asteroid2 = (ImageView)findViewById(R.id.asteroidPic2);
+        asteroid3 = (ImageView)findViewById(R.id.asteroidPic3);
+        asteroid4 = (ImageView)findViewById(R.id.asteroidPic4);
+
+
 
         //screen size
         WindowManager window = getWindowManager();
@@ -68,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
         asteroid.setX(-80.0f);
         asteroid.setY(screenHeight + 80.0f);
 
+        asteroid2.setX(-80.0f);
+        asteroid2.setY(screenHeight + 80.0f);
+
+        asteroid3.setX(-80.0f);
+        asteroid3.setY(screenHeight + 80.0f);
+
+        asteroid4.setX(-80.0f);
+        asteroid4.setY(screenHeight + 80.0f);
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -80,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 0, 10);
 
-        moveTheAsteroid();
+
 
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
@@ -92,20 +118,10 @@ public class MainActivity extends AppCompatActivity {
         moveLeft.setVisibility(View.INVISIBLE);
         moveRight.setVisibility(View.INVISIBLE);
 
-        startbutton.setOnClickListener(v -> {
-            startbutton.setVisibility(View.INVISIBLE);
-            welcome.setVisibility(View.INVISIBLE);
-            moveLeft.setVisibility(View.VISIBLE);
-            moveRight.setVisibility(View.VISIBLE);
-        });
-
-
-
-
-
-
-
-
+        asteroid.setVisibility(View.INVISIBLE);
+        asteroid2.setVisibility(View.INVISIBLE);
+        asteroid3.setVisibility(View.INVISIBLE);
+        asteroid4.setVisibility(View.INVISIBLE);
 
 
         box = findViewById(R.id.box);
@@ -118,19 +134,48 @@ public class MainActivity extends AppCompatActivity {
         final ImageView image = findViewById(R.id.box);
 
 
+        //Start Game
+        startbutton.setOnClickListener(v -> {
+            startbutton.setVisibility(View.INVISIBLE);
+            welcome.setVisibility(View.INVISIBLE);
+            moveLeft.setVisibility(View.VISIBLE);
+            moveRight.setVisibility(View.VISIBLE);
 
 
+            asteroid.setVisibility(View.VISIBLE);
+            asteroid2.setVisibility(View.VISIBLE);
+            asteroid3.setVisibility(View.VISIBLE);
+            asteroid4.setVisibility(View.VISIBLE);
+            moveTheAsteroid();
 
+            moveLeft.setOnClickListener(a -> {
+                moveRocketLeft();
 
-        moveLeft.setOnClickListener(v -> {
-            moveRocketLeft();
+            });
 
+            moveRight.setOnClickListener(b -> {
+                moveRocketRight();
+
+            });
         });
 
-        moveRight.setOnClickListener(v -> {
-            moveRocketRight();
 
-        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -138,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveTheAsteroid() {
         asteroidY = asteroidY + 10;
+        asteroidY2 = asteroidY2 + 10;
+        asteroidY3 = asteroidY3 + 10;
+        asteroidY4 = asteroidY4 + 10;
         if (asteroid.getY() > screenHeight) {
             asteroidX = (float)Math.floor(Math.random() * (screenWidth - asteroid.getWidth()));
             asteroidY = -100.0f;
@@ -145,6 +193,33 @@ public class MainActivity extends AppCompatActivity {
         }
         asteroid.setX(asteroidX);
         asteroid.setY(asteroidY);
+
+        if (asteroid2.getY() > screenHeight) {
+            asteroidX2 = (float)Math.floor(Math.random() * (screenWidth - asteroid2.getWidth() + 10));
+            asteroidY2 = -100.0f;
+
+        }
+        asteroid2.setX(asteroidX2);
+        asteroid2.setY(asteroidY2);
+
+        if (asteroid3.getY() > screenHeight) {
+            asteroidX3 = (float)Math.floor(Math.random() * (screenWidth - asteroid3.getWidth() - 10));
+            asteroidY3 = -100.0f;
+
+        }
+        asteroid3.setX(asteroidX3);
+        asteroid3.setY(asteroidY3);
+
+        if (asteroid4.getY() > screenHeight) {
+            asteroidX4 = (float)Math.floor(Math.random() * (screenWidth - asteroid4.getWidth() + 5));
+            asteroidY4 = -100.0f;
+
+        }
+        asteroid4.setX(asteroidX4);
+        asteroid4.setY(asteroidY4);
+
+
+
 
     }
 
