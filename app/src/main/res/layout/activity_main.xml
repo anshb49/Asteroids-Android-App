@@ -36,6 +36,12 @@
 
         </ImageView>
 
+        <ImageView
+            android:id="@+id/asteroidPic"
+            android:layout_width="70dp"
+            android:layout_height="93dp"
+            app:srcCompat="@drawable/asteroid" />
+
     </FrameLayout>
 
     <GridLayout
@@ -77,11 +83,6 @@
 
 
     </GridLayout>
-
-
-
-
-
 
 
 

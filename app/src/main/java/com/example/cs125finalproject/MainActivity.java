@@ -2,12 +2,16 @@ package com.example.cs125finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +41,46 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
 
+    private int screenWidth;
+    private int screenHeight;
+    private ImageView asteroid;
+
+    private float asteroidX;
+    private float asteroidY;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        asteroid = (ImageView)findViewById(R.id.asteroidPic);
+
+        //screen size
+        WindowManager window = getWindowManager();
+        Display display = window.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenWidth = size.x;
+        screenHeight = size.y;
+
+        //move to out of screen
+        asteroid.setX(-80.0f);
+        asteroid.setY(screenHeight + 80.0f);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        moveTheAsteroid();
+                    }
+                });
+            }
+        }, 0, 10);
+
+        moveTheAsteroid();
 
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
@@ -92,6 +133,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    public void moveTheAsteroid() {
+        asteroidY = asteroidY + 10;
+        if (asteroid.getY() > screenHeight) {
+            asteroidX = (float)Math.floor(Math.random() * (screenWidth - asteroid.getWidth()));
+            asteroidY = -100.0f;
+
+        }
+        asteroid.setX(asteroidX);
+        asteroid.setY(asteroidY);
 
     }
 
