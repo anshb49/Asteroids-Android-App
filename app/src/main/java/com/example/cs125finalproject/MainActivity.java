@@ -3,6 +3,7 @@ package com.example.cs125finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private float asteroidX4;
     private float asteroidY4;
 
+    public Button moveLeft = findViewById(R.id.leftBtn);
+    public Button moveRight = findViewById(R.id.rightBtn);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +118,7 @@ public class MainActivity extends AppCompatActivity {
         TextView welcome = findViewById(R.id.welcomeLabel);
 
 
-        Button moveLeft = findViewById(R.id.leftBtn);
-        Button moveRight = findViewById(R.id.rightBtn);
+
 
         moveLeft.setVisibility(View.INVISIBLE);
         moveRight.setVisibility(View.INVISIBLE);
@@ -133,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final ImageView image = findViewById(R.id.box);
+        final ImageView boxImage = findViewById(R.id.box);
 
 
         //Start Game
@@ -148,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
             asteroid2.setVisibility(View.VISIBLE);
             asteroid3.setVisibility(View.VISIBLE);
             asteroid4.setVisibility(View.VISIBLE);
-            moveTheAsteroid();
 
             moveLeft.setOnClickListener(a -> {
                 moveRocketLeft();
@@ -159,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
                 moveRocketRight();
 
             });
+
+
+            moveTheAsteroid();
+
+
         });
 
 
@@ -184,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveTheAsteroid() {
+        //Asteroid Movement
         asteroidY = asteroidY + 10;
         asteroidY2 = asteroidY2 + 10;
         asteroidY3 = asteroidY3 + 10;
@@ -220,12 +228,65 @@ public class MainActivity extends AppCompatActivity {
         asteroid4.setX(asteroidX4);
         asteroid4.setY(asteroidY4);
 
+
+        //Intersection Check
+        Rect boxRect = new Rect();
+        box.getHitRect(boxRect);
+
+        Rect asteroidRect = new Rect();
+        asteroid.getHitRect(asteroidRect);
+
+        Rect asteroid2Rect = new Rect();
+        asteroid2.getHitRect(asteroid2Rect);
+
+        Rect asteroid3Rect = new Rect();
+        asteroid3.getHitRect(asteroid3Rect);
+
+        Rect asteroid4Rect = new Rect();
+        asteroid4.getHitRect(asteroid4Rect);
+
+        if (Rect.intersects(boxRect, asteroidRect)
+                || Rect.intersects(boxRect, asteroid2Rect)
+                || Rect.intersects(boxRect, asteroid3Rect)
+                || Rect.intersects(boxRect, asteroid4Rect)) {
+            //Begin end screen
+            asteroid.setVisibility(View.INVISIBLE);
+            asteroid2.setVisibility(View.INVISIBLE);
+            asteroid3.setVisibility(View.INVISIBLE);
+            asteroid4.setVisibility(View.INVISIBLE);
+
+            moveLeft.setVisibility(View.INVISIBLE);
+            moveRight.setVisibility(View.INVISIBLE);
+
+        }
+
+
+
+
+
+        /*
+        if (Math.abs(box.getX() - asteroid.getX()) <= 1000 && box.getY() == asteroid.getY()) {
+            System.out.println("first if statement is working");
+        }
+        if (Math.abs(box.getX() - asteroid2.getX()) <= 1000 && box.getY() == asteroid2.getY()) {
+            System.out.println("second if statement is working");
+        }
+        if (Math.abs(box.getX() - asteroid3.getX()) <= 1000 && box.getY() == asteroid3.getY()) {
+            System.out.println("third if statement is working");
+        }
+        if (Math.abs(box.getX() - asteroid4.getX()) <= 1000 && box.getY() == asteroid4.getY()) {
+            System.out.println("fourth if statement is working");
+        }
+
         if (box.getX() == asteroid.getX() && box.getY() == asteroid.getY()
                 || box.getX() == asteroid2.getX() && box.getY() == asteroid2.getY()
                 || box.getX() == asteroid3.getX() && box.getY() == asteroid3.getY()
                 || box.getX() == asteroid4.getX() && box.getY() == asteroid4.getY()) {
             System.out.println("this is working");
         }
+        */
+
+
 
 
 
@@ -233,11 +294,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveRocketLeft() {
 
-        System.out.println("move left");
+        //System.out.println("move left");
 
 
 
         boxX = box.getX();
+
 
 
         boxX = boxX - 60;
@@ -250,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveRocketRight() {
-        System.out.println("move right");
+        //System.out.println("move right");
 
 
         boxX = box.getX();
