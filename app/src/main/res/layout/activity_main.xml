@@ -26,8 +26,8 @@
 
         <ImageView
             android:id="@+id/box"
-            android:layout_width="40dp"
-            android:layout_height="84dp"
+            android:layout_width="98dp"
+            android:layout_height="107dp"
             android:layout_gravity="bottom|center"
             android:foreground="@drawable/rocketpic"
             android:src="@drawable/rocketpic"
@@ -38,28 +38,28 @@
 
         <ImageView
             android:id="@+id/asteroidPic"
-            android:layout_width="70dp"
-            android:layout_height="93dp"
+            android:layout_width="99dp"
+            android:layout_height="113dp"
             app:srcCompat="@drawable/asteroid" />
 
         <ImageView
             android:id="@+id/asteroidPic2"
-            android:layout_width="69dp"
-            android:layout_height="96dp"
+            android:layout_width="99dp"
+            android:layout_height="113dp"
             android:layout_gravity="center|top"
             app:srcCompat="@drawable/asteroid" />
 
         <ImageView
             android:id="@+id/asteroidPic3"
-            android:layout_width="69dp"
-            android:layout_height="96dp"
+            android:layout_width="99dp"
+            android:layout_height="113dp"
             android:layout_gravity="right|top"
             app:srcCompat="@drawable/asteroid" />
 
         <ImageView
             android:id="@+id/asteroidPic4"
-            android:layout_width="69dp"
-            android:layout_height="96dp"
+            android:layout_width="99dp"
+            android:layout_height="113dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/asteroid" />
 

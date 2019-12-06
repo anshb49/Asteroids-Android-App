@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("check");
+
         asteroid = (ImageView)findViewById(R.id.asteroidPic);
         asteroid2 = (ImageView)findViewById(R.id.asteroidPic2);
         asteroid3 = (ImageView)findViewById(R.id.asteroidPic3);
@@ -218,6 +220,12 @@ public class MainActivity extends AppCompatActivity {
         asteroid4.setX(asteroidX4);
         asteroid4.setY(asteroidY4);
 
+        if (box.getX() == asteroid.getX() && box.getY() == asteroid.getY()
+                || box.getX() == asteroid2.getX() && box.getY() == asteroid2.getY()
+                || box.getX() == asteroid3.getX() && box.getY() == asteroid3.getY()
+                || box.getX() == asteroid4.getX() && box.getY() == asteroid4.getY()) {
+            System.out.println("this is working");
+        }
 
 
 
