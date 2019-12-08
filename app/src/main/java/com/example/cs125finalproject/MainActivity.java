@@ -2,10 +2,12 @@ package com.example.cs125finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,8 +26,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private ImageView box;
 
     private FrameLayout frame;
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
 
     private Handler handler = new Handler();
-
 
     private int screenWidth;
     private int screenHeight;
@@ -78,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         asteroid3 = (ImageView)findViewById(R.id.asteroidPic3);
         asteroid4 = (ImageView)findViewById(R.id.asteroidPic4);
 
-
-
         //screen size
         WindowManager window = getWindowManager();
         Display display = window.getDefaultDisplay();
@@ -102,31 +99,17 @@ public class MainActivity extends AppCompatActivity {
         asteroid4.setY(screenHeight + 300.0f);
 
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        moveTheAsteroid();
-                    }
-                });
-            }
-        }, 0, 40);
-
         TextView finalS = findViewById(R.id.finalScore);
         finalS.setVisibility(View.INVISIBLE);
 
-
-
+        TextView scoreD = findViewById(R.id.descriptionScore);
+        scoreD.setVisibility(View.INVISIBLE);
 
         TextView loseLabel = findViewById(R.id.loseLabel);
         loseLabel.setVisibility(View.INVISIBLE);
 
-
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
-
 
         Button moveLeft = findViewById(R.id.leftBtn);
         Button moveRight = findViewById(R.id.rightBtn);
@@ -138,19 +121,11 @@ public class MainActivity extends AppCompatActivity {
         asteroid3.setVisibility(View.INVISIBLE);
         asteroid4.setVisibility(View.INVISIBLE);
 
-
         box = findViewById(R.id.box);
         frame = findViewById(R.id.frame);
         rocket = getResources().getDrawable(R.drawable.rocketpic);
 
-
-
-
-
         final ImageView boxImage = findViewById(R.id.box);
-
-
-
 
         //Start Game
         startbutton.setOnClickListener(v -> {
@@ -159,11 +134,22 @@ public class MainActivity extends AppCompatActivity {
             moveLeft.setVisibility(View.VISIBLE);
             moveRight.setVisibility(View.VISIBLE);
 
-
             asteroid.setVisibility(View.VISIBLE);
             asteroid2.setVisibility(View.VISIBLE);
             asteroid3.setVisibility(View.VISIBLE);
             asteroid4.setVisibility(View.VISIBLE);
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            moveTheAsteroid();
+                        }
+                    });
+                }
+            }, 0, 25);
 
             moveLeft.setOnClickListener(a -> {
                 moveRocketLeft();
@@ -175,21 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
             });
 
-
-            //moveTheAsteroid();
-
-
         });
-
-
-
-
 
     }
 
     public void moveTheAsteroid() {
-
-
 
         //Asteroid Movement
         asteroidY = asteroidY + 10;
@@ -228,16 +204,12 @@ public class MainActivity extends AppCompatActivity {
         asteroid4.setX(asteroidX4);
         asteroid4.setY(asteroidY4);
 
-
-
-
         checkIfHit();
-
-
 
     }
 
     public void checkIfHit() {
+        final MediaPlayer explosionSound = MediaPlayer.create(this, R.raw.explosion);
 
         //Intersection Check
         Rect boxRect = new Rect();
@@ -274,13 +246,27 @@ public class MainActivity extends AppCompatActivity {
             TextView loseLabel = findViewById(R.id.loseLabel);
             loseLabel.setVisibility(View.VISIBLE);
 
+            TextView sc = findViewById(R.id.score);
+            sc.setVisibility(View.INVISIBLE);
+
+            TextView scoreD = findViewById(R.id.descriptionScore);
+            scoreD.setVisibility(View.VISIBLE);
+
             int finalScore = score;
             TextView finalS = findViewById(R.id.finalScore);
             finalS.setText(Integer.toString(finalScore));
             finalS.setVisibility(View.VISIBLE);
+
+            Button startAgain = findViewById(R.id.startButton);
+            startAgain.setVisibility(View.VISIBLE);
+
+            startAgain.setOnClickListener(a -> {
+                this.recreate();
+
+            });
+
+            explosionSound.start();
             return;
-
-
 
         } else {
 
@@ -294,55 +280,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveRocketLeft() {
 
-        //System.out.println("move left");
-
-
-
         boxX = box.getX();
-
-
 
         boxX = boxX - 60;
 
         box.setX(boxX);
         box.setImageDrawable(rocket);
 
-
     }
 
     public void moveRocketRight() {
-        //System.out.println("move right");
-
 
         boxX = box.getX();
-
 
         boxX = boxX + 60;
 
         box.setX(boxX);
         box.setImageDrawable(rocket);
 
-
-
     }
-
-    /*
-    public void startTimer() {
-
-        //TextView timer = findViewById(R.id.scoreID);
-        TextView timer = (TextView)findViewById(R.id.scoreID);
-        //timer.setText("Text to set");
-        try {
-            Thread.sleep(1000);
-            score++;
-            timer.setText(Integer.toString(score));
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-    */
-
 
 }
