@@ -25,6 +25,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
 
+
     private ImageView box;
 
     private FrameLayout frame;
@@ -61,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private float asteroidX4;
     private float asteroidY4;
 
-    public Button moveLeft = findViewById(R.id.leftBtn);
-    public Button moveRight = findViewById(R.id.rightBtn);
+    private boolean lostGame = false;
+    private int score = 0;
 
 
     @Override
@@ -89,16 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
         //move to out of screen
         asteroid.setX(-80.0f);
-        asteroid.setY(screenHeight + 80.0f);
+        asteroid.setY(screenHeight + 300.0f);
 
         asteroid2.setX(-80.0f);
-        asteroid2.setY(screenHeight + 80.0f);
+        asteroid2.setY(screenHeight + 300.0f);
 
         asteroid3.setX(-80.0f);
-        asteroid3.setY(screenHeight + 80.0f);
+        asteroid3.setY(screenHeight + 300.0f);
 
         asteroid4.setX(-80.0f);
-        asteroid4.setY(screenHeight + 80.0f);
+        asteroid4.setY(screenHeight + 300.0f);
+
 
         timer.schedule(new TimerTask() {
             @Override
@@ -110,16 +112,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 10);
+        }, 0, 40);
 
+        TextView finalS = findViewById(R.id.finalScore);
+        finalS.setVisibility(View.INVISIBLE);
+
+
+
+
+        TextView loseLabel = findViewById(R.id.loseLabel);
+        loseLabel.setVisibility(View.INVISIBLE);
 
 
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
 
 
-
-
+        Button moveLeft = findViewById(R.id.leftBtn);
+        Button moveRight = findViewById(R.id.rightBtn);
         moveLeft.setVisibility(View.INVISIBLE);
         moveRight.setVisibility(View.INVISIBLE);
 
@@ -136,7 +146,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         final ImageView boxImage = findViewById(R.id.box);
+
+
 
 
         //Start Game
@@ -163,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-            moveTheAsteroid();
+            //moveTheAsteroid();
 
 
         });
@@ -172,32 +185,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public void moveTheAsteroid() {
+
+
+
         //Asteroid Movement
         asteroidY = asteroidY + 10;
         asteroidY2 = asteroidY2 + 10;
         asteroidY3 = asteroidY3 + 10;
         asteroidY4 = asteroidY4 + 10;
         if (asteroid.getY() > screenHeight) {
-            asteroidX = (float)Math.floor(Math.random() * (screenWidth - asteroid.getWidth()));
+            asteroidX = (float) Math.floor(Math.random() * (screenWidth - asteroid.getWidth()));
             asteroidY = -100.0f;
 
         }
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         asteroid.setY(asteroidY);
 
         if (asteroid2.getY() > screenHeight) {
-            asteroidX2 = (float)Math.floor(Math.random() * (screenWidth - asteroid2.getWidth() + 10));
+            asteroidX2 = (float) Math.floor(Math.random() * (screenWidth - asteroid2.getWidth() + 10));
             asteroidY2 = -100.0f;
 
         }
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         asteroid2.setY(asteroidY2);
 
         if (asteroid3.getY() > screenHeight) {
-            asteroidX3 = (float)Math.floor(Math.random() * (screenWidth - asteroid3.getWidth() - 10));
+            asteroidX3 = (float) Math.floor(Math.random() * (screenWidth - asteroid3.getWidth() - 10));
             asteroidY3 = -100.0f;
 
         }
@@ -221,13 +221,23 @@ public class MainActivity extends AppCompatActivity {
         asteroid3.setY(asteroidY3);
 
         if (asteroid4.getY() > screenHeight) {
-            asteroidX4 = (float)Math.floor(Math.random() * (screenWidth - asteroid4.getWidth() + 5));
+            asteroidX4 = (float) Math.floor(Math.random() * (screenWidth - asteroid4.getWidth() + 5));
             asteroidY4 = -100.0f;
 
         }
         asteroid4.setX(asteroidX4);
         asteroid4.setY(asteroidY4);
 
+
+
+
+        checkIfHit();
+
+
+
+    }
+
+    public void checkIfHit() {
 
         //Intersection Check
         Rect boxRect = new Rect();
@@ -250,45 +260,35 @@ public class MainActivity extends AppCompatActivity {
                 || Rect.intersects(boxRect, asteroid3Rect)
                 || Rect.intersects(boxRect, asteroid4Rect)) {
             //Begin end screen
+            System.out.println(("you lose"));
             asteroid.setVisibility(View.INVISIBLE);
             asteroid2.setVisibility(View.INVISIBLE);
             asteroid3.setVisibility(View.INVISIBLE);
             asteroid4.setVisibility(View.INVISIBLE);
 
-            moveLeft.setVisibility(View.INVISIBLE);
-            moveRight.setVisibility(View.INVISIBLE);
+            Button moveL = findViewById(R.id.leftBtn);
+            Button moveR = findViewById(R.id.rightBtn);
+            moveL.setVisibility(View.INVISIBLE);
+            moveR.setVisibility(View.INVISIBLE);
 
+            TextView loseLabel = findViewById(R.id.loseLabel);
+            loseLabel.setVisibility(View.VISIBLE);
+
+            int finalScore = score;
+            TextView finalS = findViewById(R.id.finalScore);
+            finalS.setText(Integer.toString(finalScore));
+            finalS.setVisibility(View.VISIBLE);
+            return;
+
+
+
+        } else {
+
+            score = score + 1;
+
+            TextView scoreL = findViewById(R.id.score);
+            scoreL.setText(Integer.toString(score));
         }
-
-
-
-
-
-        /*
-        if (Math.abs(box.getX() - asteroid.getX()) <= 1000 && box.getY() == asteroid.getY()) {
-            System.out.println("first if statement is working");
-        }
-        if (Math.abs(box.getX() - asteroid2.getX()) <= 1000 && box.getY() == asteroid2.getY()) {
-            System.out.println("second if statement is working");
-        }
-        if (Math.abs(box.getX() - asteroid3.getX()) <= 1000 && box.getY() == asteroid3.getY()) {
-            System.out.println("third if statement is working");
-        }
-        if (Math.abs(box.getX() - asteroid4.getX()) <= 1000 && box.getY() == asteroid4.getY()) {
-            System.out.println("fourth if statement is working");
-        }
-
-        if (box.getX() == asteroid.getX() && box.getY() == asteroid.getY()
-                || box.getX() == asteroid2.getX() && box.getY() == asteroid2.getY()
-                || box.getX() == asteroid3.getX() && box.getY() == asteroid3.getY()
-                || box.getX() == asteroid4.getX() && box.getY() == asteroid4.getY()) {
-            System.out.println("this is working");
-        }
-        */
-
-
-
-
 
     }
 
@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
         box.setImageDrawable(rocket);
 
 
-
     }
 
     public void moveRocketRight() {
@@ -326,4 +325,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    /*
+    public void startTimer() {
+
+        //TextView timer = findViewById(R.id.scoreID);
+        TextView timer = (TextView)findViewById(R.id.scoreID);
+        //timer.setText("Text to set");
+        try {
+            Thread.sleep(1000);
+            score++;
+            timer.setText(Integer.toString(score));
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+    */
+
+
 }

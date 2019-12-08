@@ -26,42 +26,70 @@
 
         <ImageView
             android:id="@+id/box"
-            android:layout_width="98dp"
-            android:layout_height="107dp"
+            android:layout_width="58dp"
+            android:layout_height="72dp"
             android:layout_gravity="bottom|center"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
             android:foreground="@drawable/rocketpic"
+            android:maxWidth="50dp"
+            android:minWidth="0dp"
             android:src="@drawable/rocketpic"
-            android:visibility="visible">
+            android:visibility="visible"
+            app:srcCompat="@drawable/rocketpic">
 
 
         </ImageView>
 
         <ImageView
             android:id="@+id/asteroidPic"
-            android:layout_width="99dp"
-            android:layout_height="113dp"
+            android:layout_width="66dp"
+            android:layout_height="85dp"
             app:srcCompat="@drawable/asteroid" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="167dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:text="Score" />
 
         <ImageView
             android:id="@+id/asteroidPic2"
-            android:layout_width="99dp"
-            android:layout_height="113dp"
+            android:layout_width="56dp"
+            android:layout_height="51dp"
             android:layout_gravity="center|top"
             app:srcCompat="@drawable/asteroid" />
 
         <ImageView
             android:id="@+id/asteroidPic3"
-            android:layout_width="99dp"
-            android:layout_height="113dp"
+            android:layout_width="48dp"
+            android:layout_height="58dp"
             android:layout_gravity="right|top"
             app:srcCompat="@drawable/asteroid" />
 
         <ImageView
             android:id="@+id/asteroidPic4"
-            android:layout_width="99dp"
-            android:layout_height="113dp"
-            android:layout_gravity="center"
+            android:layout_width="66dp"
+            android:layout_height="85dp"
             app:srcCompat="@drawable/asteroid" />
+
+        <TextView
+            android:id="@+id/loseLabel"
+            android:layout_width="270dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:background="@android:color/holo_blue_bright"
+            android:text="YOU LOSE"
+            app:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/finalScore"
+            android:layout_width="118dp"
+            android:layout_height="148dp"
+            android:layout_gravity="bottom|center|center_horizontal"
+            android:background="@color/colorAccent"
+            android:text="TextView" />
 
     </FrameLayout>
 
