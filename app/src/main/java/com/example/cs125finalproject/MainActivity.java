@@ -2,41 +2,30 @@ package com.example.cs125finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView box;
 
-    private FrameLayout frame;
-
     private Drawable rocket;
 
     private float boxX;
-    private float boxY;
-
-    private boolean action_left = false;
-    private boolean action_right = false;
 
     private Timer timer = new Timer();
 
@@ -61,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private float asteroidX4;
     private float asteroidY4;
 
-    private boolean lostGame = false;
     private int score = 0;
+
+    private boolean lost = false;
 
 
     @Override
@@ -111,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         Button startbutton = findViewById(R.id.startButton);
         TextView welcome = findViewById(R.id.welcomeLabel);
 
-        Button moveLeft = findViewById(R.id.leftBtn);
-        Button moveRight = findViewById(R.id.rightBtn);
+        Button moveLeft = findViewById(R.id.leftButton);
+        Button moveRight = findViewById(R.id.rightButton);
         moveLeft.setVisibility(View.INVISIBLE);
         moveRight.setVisibility(View.INVISIBLE);
 
@@ -122,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         asteroid4.setVisibility(View.INVISIBLE);
 
         box = findViewById(R.id.box);
-        frame = findViewById(R.id.frame);
         rocket = getResources().getDrawable(R.drawable.rocketpic);
 
         final ImageView boxImage = findViewById(R.id.box);
@@ -238,8 +227,8 @@ public class MainActivity extends AppCompatActivity {
             asteroid3.setVisibility(View.INVISIBLE);
             asteroid4.setVisibility(View.INVISIBLE);
 
-            Button moveL = findViewById(R.id.leftBtn);
-            Button moveR = findViewById(R.id.rightBtn);
+            Button moveL = findViewById(R.id.leftButton);
+            Button moveR = findViewById(R.id.rightButton);
             moveL.setVisibility(View.INVISIBLE);
             moveR.setVisibility(View.INVISIBLE);
 
@@ -264,16 +253,24 @@ public class MainActivity extends AppCompatActivity {
                 this.recreate();
 
             });
-
+            lost = true;
             explosionSound.start();
+
+            box.setVisibility(View.INVISIBLE);
+
             return;
 
         } else {
 
-            score = score + 1;
+            if (lost == true) {
+                score = score;
+            } else {
+                score = score + 1;
 
-            TextView scoreL = findViewById(R.id.score);
-            scoreL.setText(Integer.toString(score));
+                TextView scoreL = findViewById(R.id.score);
+                scoreL.setText(Integer.toString(score));
+            }
+
         }
 
     }
