@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void moveRocketRight() {
 
         rocketbX = rocketb.getX();
