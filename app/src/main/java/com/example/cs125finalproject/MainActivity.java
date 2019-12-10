@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,11 +20,11 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView box;
+    private ImageView rocketb;
 
     private Drawable rocket;
 
-    private float boxX;
+    private float rocketbX;
 
     private Timer timer = new Timer();
 
@@ -69,24 +68,27 @@ public class MainActivity extends AppCompatActivity {
 
         //screen size
         WindowManager window = getWindowManager();
-        Display display = window.getDefaultDisplay();
+        //Display display =
         Point size = new Point();
-        display.getSize(size);
+        window.getDefaultDisplay().getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
 
-        //move to out of screen
-        asteroid.setX(-80.0f);
-        asteroid.setY(screenHeight + 300.0f);
 
-        asteroid2.setX(-80.0f);
-        asteroid2.setY(screenHeight + 300.0f);
 
-        asteroid3.setX(-80.0f);
-        asteroid3.setY(screenHeight + 300.0f);
 
-        asteroid4.setX(-80.0f);
-        asteroid4.setY(screenHeight + 300.0f);
+
+        asteroid.setX(-95.0f);
+        asteroid.setY(screenHeight + 310.0f);
+
+        asteroid2.setX(-95.0f);
+        asteroid2.setY(screenHeight + 310.0f);
+
+        asteroid3.setX(-95.0f);
+        asteroid3.setY(screenHeight + 310.0f);
+
+        asteroid4.setX(-95.0f);
+        asteroid4.setY(screenHeight + 310.0f);
 
 
         TextView finalS = findViewById(R.id.finalScore);
@@ -111,12 +113,11 @@ public class MainActivity extends AppCompatActivity {
         asteroid3.setVisibility(View.INVISIBLE);
         asteroid4.setVisibility(View.INVISIBLE);
 
-        box = findViewById(R.id.box);
+        rocketb = findViewById(R.id.rock);
         rocket = getResources().getDrawable(R.drawable.rocketpic);
 
-        final ImageView boxImage = findViewById(R.id.box);
 
-        //Start Game
+        //Start Button
         startbutton.setOnClickListener(v -> {
             startbutton.setVisibility(View.INVISIBLE);
             welcome.setVisibility(View.INVISIBLE);
@@ -201,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
         final MediaPlayer explosionSound = MediaPlayer.create(this, R.raw.explosion);
 
         //Intersection Check
-        Rect boxRect = new Rect();
-        box.getHitRect(boxRect);
+        Rect rectR = new Rect();
+        rocketb.getHitRect(rectR);
 
         Rect asteroidRect = new Rect();
         asteroid.getHitRect(asteroidRect);
@@ -216,10 +217,10 @@ public class MainActivity extends AppCompatActivity {
         Rect asteroid4Rect = new Rect();
         asteroid4.getHitRect(asteroid4Rect);
 
-        if (Rect.intersects(boxRect, asteroidRect)
-                || Rect.intersects(boxRect, asteroid2Rect)
-                || Rect.intersects(boxRect, asteroid3Rect)
-                || Rect.intersects(boxRect, asteroid4Rect)) {
+        if (Rect.intersects(rectR, asteroidRect)
+                || Rect.intersects(rectR, asteroid2Rect)
+                || Rect.intersects(rectR, asteroid3Rect)
+                || Rect.intersects(rectR, asteroid4Rect)) {
             //Begin end screen
             System.out.println(("you lose"));
             asteroid.setVisibility(View.INVISIBLE);
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
             lost = true;
             explosionSound.start();
 
-            box.setVisibility(View.INVISIBLE);
+            rocketb.setVisibility(View.INVISIBLE);
 
             return;
 
@@ -277,23 +278,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveRocketLeft() {
 
-        boxX = box.getX();
+        rocketbX = rocketb.getX();
 
-        boxX = boxX - 60;
+        rocketbX = rocketbX - 60;
 
-        box.setX(boxX);
-        box.setImageDrawable(rocket);
+        rocketb.setX(rocketbX);
+        rocketb.setImageDrawable(rocket);
 
     }
 
     public void moveRocketRight() {
 
-        boxX = box.getX();
+        rocketbX = rocketb.getX();
 
-        boxX = boxX + 60;
+        rocketbX = rocketbX + 60;
 
-        box.setX(boxX);
-        box.setImageDrawable(rocket);
+        rocketb.setX(rocketbX);
+        rocketb.setImageDrawable(rocket);
 
     }
 
